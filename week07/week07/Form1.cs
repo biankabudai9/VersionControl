@@ -17,17 +17,15 @@ namespace week07
 
         Random rng = new Random(1000);
 
+        List<Person> Population = new List<Person>();
+
+        List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
+
+        List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
+
         public Form1()
         {
             InitializeComponent();
-
-
-            
-            List<Person> Population = new List<Person>();
-            
-            List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
-           
-            List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
 
             Population = GetPopulation(@"C:\Temp\nép.csv");
 
@@ -158,7 +156,7 @@ namespace week07
             byte age = (byte)(year - person.BirthYear);
 
             double pDeath = (from x in DeathProbabilities
-                             where x.Gender == person.Gender && x.Age == age
+                             where x.gender == person.Gender && x.age == age
                              select x.P).FirstOrDefault();
             if (rng.NextDouble() <= pDeath)
                 person.IsAlive = false;
@@ -168,7 +166,7 @@ namespace week07
             {
 
                 double pBirth = (from x in BirthProbabilities
-                                 where x.Age == age
+                                 where x.age == age
                                  select x.P).FirstOrDefault();
 
                 if (rng.NextDouble() <= pBirth)
