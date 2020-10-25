@@ -14,6 +14,9 @@ namespace week07
 {
     public partial class Form1 : Form
     {
+
+        Random rng = new Random(1000);
+
         public Form1()
         {
             InitializeComponent();
