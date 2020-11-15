@@ -12,4 +12,5 @@ namespace week08.Abstractions
         Toy CreateNew();
 
     }
+
 }
