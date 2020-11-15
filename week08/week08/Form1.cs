@@ -89,5 +89,16 @@ namespace week08
             _nextToy.Left = label.Left;
             Controls.Add(_nextToy);
         }
+
+        private void buttoncolor_Click(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            var colorPicker = new ColorDialog();
+
+            colorPicker.Color = button.BackColor;
+            if (colorPicker.ShowDialog() != DialogResult.OK)
+                return;
+            button.BackColor = colorPicker.Color;
+        }
     }
 }

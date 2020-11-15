@@ -35,11 +35,13 @@
             this.car = new System.Windows.Forms.Button();
             this.createTimer = new System.Windows.Forms.Timer(this.components);
             this.conveyorTimer = new System.Windows.Forms.Timer(this.components);
+            this.buttoncolor = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.buttoncolor);
             this.mainPanel.Controls.Add(this.label);
             this.mainPanel.Controls.Add(this.ball);
             this.mainPanel.Controls.Add(this.car);
@@ -88,6 +90,16 @@
             this.conveyorTimer.Enabled = true;
             this.conveyorTimer.Interval = 10;
             // 
+            // buttoncolor
+            // 
+            this.buttoncolor.BackColor = System.Drawing.Color.Fuchsia;
+            this.buttoncolor.Location = new System.Drawing.Point(663, 34);
+            this.buttoncolor.Name = "buttoncolor";
+            this.buttoncolor.Size = new System.Drawing.Size(75, 23);
+            this.buttoncolor.TabIndex = 3;
+            this.buttoncolor.UseVisualStyleBackColor = false;
+            this.buttoncolor.Click += new System.EventHandler(this.buttoncolor_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -110,6 +122,7 @@
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.Button ball;
         private System.Windows.Forms.Button car;
+        private System.Windows.Forms.Button buttoncolor;
     }
 }
 
