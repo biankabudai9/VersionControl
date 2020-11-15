@@ -30,17 +30,53 @@
         {
             this.components = new System.ComponentModel.Container();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.label = new System.Windows.Forms.Label();
+            this.ball = new System.Windows.Forms.Button();
+            this.car = new System.Windows.Forms.Button();
             this.createTimer = new System.Windows.Forms.Timer(this.components);
             this.conveyorTimer = new System.Windows.Forms.Timer(this.components);
+            this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.label);
+            this.mainPanel.Controls.Add(this.ball);
+            this.mainPanel.Controls.Add(this.car);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(800, 450);
             this.mainPanel.TabIndex = 0;
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Location = new System.Drawing.Point(206, 40);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(89, 17);
+            this.label.TabIndex = 2;
+            this.label.Text = "Coming next:";
+            // 
+            // ball
+            // 
+            this.ball.Location = new System.Drawing.Point(475, 34);
+            this.ball.Name = "ball";
+            this.ball.Size = new System.Drawing.Size(75, 23);
+            this.ball.TabIndex = 1;
+            this.ball.Text = "BALL";
+            this.ball.UseVisualStyleBackColor = true;
+            this.ball.Click += new System.EventHandler(this.ball_Click);
+            // 
+            // car
+            // 
+            this.car.Location = new System.Drawing.Point(357, 35);
+            this.car.Name = "car";
+            this.car.Size = new System.Drawing.Size(75, 23);
+            this.car.TabIndex = 0;
+            this.car.Text = "CAR";
+            this.car.UseVisualStyleBackColor = true;
+            this.car.Click += new System.EventHandler(this.car_Click);
             // 
             // createTimer
             // 
@@ -60,6 +96,8 @@
             this.Controls.Add(this.mainPanel);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.mainPanel.ResumeLayout(false);
+            this.mainPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -69,6 +107,9 @@
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Timer createTimer;
         private System.Windows.Forms.Timer conveyorTimer;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Button ball;
+        private System.Windows.Forms.Button car;
     }
 }
 
