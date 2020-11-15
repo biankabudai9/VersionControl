@@ -57,6 +57,7 @@ namespace week08
                 var oldestBall = _balls[0];
                 mainPanel.Controls.Remove(oldestBall);
                 _balls.Remove(oldestBall);
+
             }
         }
 
