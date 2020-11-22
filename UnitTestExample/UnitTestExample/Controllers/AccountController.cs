@@ -53,19 +53,19 @@ namespace UnitTestExample.Controllers
             if (Regex.IsMatch(password, @"[a-zA-Z0-9]{8,}"))
             {
                 //kisbetű
-                if (!Regex.IsMatch(password, @"[a-z]{8,}"))
+                if (!Regex.IsMatch(password, @"[a-z]{1,}"))
                 {
 
                     return false;
                 }
                 //nagybetű
-                else if (!Regex.IsMatch(password, @"[A-Z]{8,}"))
+                else if (!Regex.IsMatch(password, @"[A-Z]{1,}"))
                 {
 
                     return false;
                 }
                 //szám
-                else if (!Regex.IsMatch(password, @"[0-9]{8,}"))
+                else if (!Regex.IsMatch(password, @"[0-9]{1,}"))
                 {
 
                     return false;
