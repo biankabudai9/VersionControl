@@ -4,17 +4,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitTestExample.Controllers;
+using UnitTestExample.Abstractions;
 
 
 namespace UnitTestExample.Test
 {
     public class AccountControllerTestFixture
     {
-
-        [Test]
+        [
+                Test,
+                TestCase("abcd1234", false),
+                TestCase("irf@uni-corvinus", false),
+                TestCase("irf.uni-corvinus.hu", false),
+                TestCase("irf@uni-corvinus.hu", true)
+        ]
         public void TestValidateEmail (string email, bool expectedresult)
         {
 
+            var accountController = new AccountController();
+          
+            var actualResult = accountController.ValidateEmail(email);
+          
+            Assert.AreEqual(expectedresult, actualResult);
 
         }
     }
