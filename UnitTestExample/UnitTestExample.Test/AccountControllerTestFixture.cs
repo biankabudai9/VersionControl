@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnitTestExample.Controllers;
 using UnitTestExample.Abstractions;
+using System.Activities;
 
 
 namespace UnitTestExample.Test
@@ -19,13 +20,13 @@ namespace UnitTestExample.Test
                 TestCase("irf.uni-corvinus.hu", false),
                 TestCase("irf@uni-corvinus.hu", true)
         ]
-        public void TestValidateEmail (string email, bool expectedresult)
+        public void TestValidateEmail(string email, bool expectedresult)
         {
-           //Arrange
+            //Arrange
             var accountController = new AccountController();
-          //Act
+            //Act
             var actualResult = accountController.ValidateEmail(email);
-          //Assert
+            //Assert
             Assert.AreEqual(expectedresult, actualResult);
 
         }
@@ -43,7 +44,7 @@ namespace UnitTestExample.Test
 
         public void TestPassword(string password, bool expectedResult)
         {
-            
+
             //Arrange
             AccountController accountController = new AccountController();
 
@@ -78,5 +79,35 @@ namespace UnitTestExample.Test
 
 
         }
+
+
+        [
+            Test,
+            TestCase("irf@uni-corvinus", "Abcd1234"),
+            TestCase("irf.uni-corvinus.hu", "Abcd1234"),
+            TestCase("irf@uni-corvinus.hu", "abcd1234"),
+            TestCase("irf@uni-corvinus.hu", "ABCD1234"),
+            TestCase("irf@uni-corvinus.hu", "abcdABCD"),
+            TestCase("irf@uni-corvinus.hu", "Ab1234"),
+        ]
+        public void TestRegisterValidateException(string email, string password)
+        {
+            //Arrange
+
+            var accountController = new AccountController();
+
+            //Act
+
+            try
+            {
+                var actualResult = accountController.Register(email, password);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOf<ValidationException>(ex);
+            }
+
+        }
+       }
     }
-}
