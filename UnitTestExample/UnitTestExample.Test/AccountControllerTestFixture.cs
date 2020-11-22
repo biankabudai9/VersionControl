@@ -39,7 +39,7 @@ namespace UnitTestExample.Test
           TestCase("aaaaaaaaa", false),
           TestCase("aAa3", false),
           TestCase("AaAaAaAaA9", true),
-      ]
+        ]
 
         public void TestPassword(string password, bool expectedResult)
         {
@@ -52,6 +52,31 @@ namespace UnitTestExample.Test
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
+        }
+
+
+        [
+            Test,
+            TestCase("irf@uni-corvinus.hu", "Aaaa10000"),
+            TestCase("irf@uni-corvinus.hu", "AaAaAaAa111"),
+        ]
+        public void TestRegisterHappyPath(string email, string password)
+        {
+            //Arrange
+            var accountController = new AccountController();
+
+            //Act
+            var actualResult = accountController.Register(email, password);
+
+
+            //Assert
+            Assert.AreEqual(email, actualResult.Email);
+
+            Assert.AreEqual(password, actualResult.Password);
+
+            Assert.AreNotEqual(Guid.Empty, actualResult.ID);
+
+
         }
     }
 }
