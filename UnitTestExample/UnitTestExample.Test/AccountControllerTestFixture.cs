@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using UnitTestExample.Controllers;
 using UnitTestExample.Abstractions;
 using System.Activities;
-
+using Moq;
+using UnitTestExample.Entities;
 
 namespace UnitTestExample.Test
 {
@@ -64,20 +65,29 @@ namespace UnitTestExample.Test
         public void TestRegisterHappyPath(string email, string password)
         {
             //Arrange
+
             var accountController = new AccountController();
 
+            var accountServiceMock = new Mock<IAccountManager>(MockBehavior.Strict);
+            accountServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Returns<Account>(a => a);
+
+
             //Act
+
             var actualResult = accountController.Register(email, password);
 
 
             //Assert
+
             Assert.AreEqual(email, actualResult.Email);
 
             Assert.AreEqual(password, actualResult.Password);
 
             Assert.AreNotEqual(Guid.Empty, actualResult.ID);
 
-
+            accountServiceMock.Verify(m => m.CreateAccount(actualResult), Times.Once);
         }
 
 
@@ -109,5 +119,39 @@ namespace UnitTestExample.Test
             }
 
         }
-       }
+
+
+        [
+            Test,
+            TestCase("irf@uni-corvinus.hu", "Abcd1234")
+        ]
+        public void TestRegisterApplicationException(string newEmail, string newPassword)
+        {
+
+
+            // Arrange
+
+            var accountServiceMock = new Mock<IAccountManager>(MockBehavior.Strict);
+            accountServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Throws<ApplicationException>();
+
+            var accountController = new AccountController();
+
+            accountController.AccountManager = accountServiceMock.Object;
+
+            // Act
+
+            try
+            {
+                var actualResult = accountController.Register(newEmail, newPassword);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOf<ApplicationException>(ex);
+            }
+           
+        }
+    }
     }
