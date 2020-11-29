@@ -14,8 +14,6 @@ namespace week10
     public partial class Form1 : Form
     {
 
-
-
         GameController gc = new GameController();
 
         GameArea ga;
@@ -27,7 +25,6 @@ namespace week10
 
 
         Brain winnerBrain = null;
-
        
 
         public Form1()
@@ -38,8 +35,8 @@ namespace week10
 
             this.Controls.Add(ga);
 
-            gc.AddPlayer();
-            gc.Start(true);
+            //gc.AddPlayer();
+           // gc.Start(true);
 
             gc.GameOver += Gc_GameOver;
 
@@ -52,11 +49,8 @@ namespace week10
             gc.Start();
 
 
-            
-
         }
-
-        
+      
 
         private void Gc_GameOver(object sender)
         {
@@ -79,11 +73,14 @@ namespace week10
 
             foreach (var p in topPerformers)
             {
+
                 var b = p.Brain.Clone();
+
                 if (generation % 3 == 0)
                     gc.AddPlayer(b.ExpandBrain(nbrOfStepsIncrement));
                 else
                     gc.AddPlayer(b);
+
 
                 if (generation % 3 == 0)
                     gc.AddPlayer(b.Mutate().ExpandBrain(nbrOfStepsIncrement));
@@ -97,12 +94,32 @@ namespace week10
             var winners = from p in topPerformers
                           where p.IsWinner
                           select p;
+
+
             if (winners.Count() > 0)
             {
+                button1.Visible = true;
+
                 winnerBrain = winners.FirstOrDefault().Brain.Clone();
                 gc.GameOver -= Gc_GameOver;
+
                 return;
+
+
             }
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            gc.ResetCurrentLevel();
+            gc.AddPlayer(winnerBrain.Clone());
+            gc.AddPlayer();
+            ga.Focus();
+            gc.Start(true);
+
         }
     }
 }
